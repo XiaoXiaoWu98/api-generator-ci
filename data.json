@@ -1,0 +1,2632 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "调用API需要通过token header进行身份验证。",
+    "version": "0.0.1",
+    "title": "大伊智-自定义商城APIs",
+    "contact": {
+      "name": "Java Team"
+    }
+  },
+  "tags": [
+    {
+      "name": "JSONRPC_PageTemplate",
+      "description": "自定义商城模板RPC接口"
+    },
+    {
+      "name": "JSONRPC_ProductGroup",
+      "description": "商品分组jrpc接口提供"
+    },
+    {
+      "name": "ProductGroup",
+      "description": "商品分组"
+    },
+    {
+      "name": "Debug",
+      "description": "后端调试相关"
+    },
+    {
+      "name": "EmallConfig",
+      "description": "门店配置"
+    },
+    {
+      "name": "PageTemplate",
+      "description": "自定义模板"
+    },
+    {
+      "name": "debug",
+      "description": "debug"
+    },
+    {
+      "name": "emallConfig",
+      "description": "emallConfig"
+    },
+    {
+      "name": "JSON_RPC_PageTemplate",
+      "description": "JSON-RPC_PageTemplate"
+    },
+    {
+      "name": "JSON_RPC_ProductGroup",
+      "description": "JSON-RPC_ProductGroup"
+    },
+    {
+      "name": "pageTemplate",
+      "description": "pageTemplate"
+    }
+  ],
+  "paths": {
+    "/debug/getDefualtTemplate": {
+      "get": {
+        "tags": [
+          "debug"
+        ],
+        "summary": "获取默认模板",
+        "description": "此接口作为调试,不对外公开.",
+        "operationId": "testUsingGET",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/debug/initClassSalonDataCreated": {
+      "put": {
+        "tags": [
+          "debug"
+        ],
+        "summary": "创建商城初始化数据",
+        "description": "此接口作为调试,不对外公开.",
+        "operationId": "initClassSalonDataCreatedUsingPUT",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InitCassSalonCreatedRequest"
+              }
+            }
+          },
+          "description": "request",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/emall_config": {
+      "get": {
+        "tags": [
+          "emallConfig"
+        ],
+        "summary": "获取商城配置",
+        "operationId": "getEmallConfigUsingGET",
+        "parameters": [
+          {
+            "name": "salonId",
+            "in": "query",
+            "description": "店铺 ID",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmallConfigResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "emallConfig"
+        ],
+        "summary": "保存商城配置",
+        "description": "支持局部更新，只传递需要更新的字段",
+        "operationId": "saveEmallConfigUsingPUT",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmallConfigRequest"
+              }
+            }
+          },
+          "description": "request",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/emall_config/update-enabled": {
+      "put": {
+        "tags": [
+          "emallConfig"
+        ],
+        "summary": "更新是否启用自定义商城模板",
+        "description": "自定义商城模板,将重置商城所有配置，使用新的自定义商城，无法回退旧商城配置",
+        "operationId": "updateEmallConfigEnabledUsingPUT",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEmallConfigEnabledRequest"
+              }
+            }
+          },
+          "description": "request",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/jrpc/_page_template/createPageReference": {
+      "post": {
+        "tags": [
+          "JSON_RPC_PageTemplate"
+        ],
+        "summary": "创建模板与引用源的关联关系",
+        "description": "根据引用源Id(商品Id)创建关联关系",
+        "operationId": "createPageReferenceUsingPOST",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/PageReferenceReq"
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonsApiResp"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/jrpc/_page_template/deletedPageReference": {
+      "post": {
+        "tags": [
+          "JSON_RPC_PageTemplate"
+        ],
+        "summary": "删除模板与引用源的关联关系",
+        "description": "根据引用源Id(商品Id)删除关联关系",
+        "operationId": "deletedPageReferenceUsingPOST",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/PageReferenceReq"
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonsApiResp"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/jrpc/_page_template/getCustomConfig": {
+      "post": {
+        "tags": [
+          "JSON_RPC_PageTemplate"
+        ],
+        "summary": "获取自定义商城配置",
+        "description": "获取商城菜单与主页的配置",
+        "operationId": "getCustomConfigUsingPOST",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmallConfigReq"
+              }
+            }
+          },
+          "description": "req",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmallConfigResp"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/jrpc/_page_template/initCustomMall": {
+      "post": {
+        "tags": [
+          "JSON_RPC_PageTemplate"
+        ],
+        "summary": "初始化自定义商城",
+        "description": "初始化店铺的分类导航, 自定义页面, 商品模板和商品分组",
+        "operationId": "initCustomMallUsingPOST",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InitCustomMallReq"
+              }
+            }
+          },
+          "description": "initReq",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonsApiResp"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/jrpc/productGroup/createRelationshipByGroupId": {
+      "post": {
+        "tags": [
+          "JSON_RPC_ProductGroup"
+        ],
+        "summary": "根据分组id创建分组关联(传入分组id+多个商品id)",
+        "operationId": "createRelationshipByGroupIdUsingPOST",
+        "parameters": [
+          {
+            "name": "brandId",
+            "in": "query",
+            "description": "连锁品牌id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "description": "分组id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "productIds",
+            "in": "query",
+            "description": "商品id",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          {
+            "name": "salonId",
+            "in": "query",
+            "description": "门店id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/jrpc/productGroup/createRelationshipByProductId": {
+      "post": {
+        "tags": [
+          "JSON_RPC_ProductGroup"
+        ],
+        "summary": "根据商品id创建分组关联(传入多个分组id+一个商品id)",
+        "operationId": "createRelationshipByProductIdUsingPOST",
+        "parameters": [
+          {
+            "name": "brandId",
+            "in": "query",
+            "description": "连锁品牌id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "groupIds",
+            "in": "query",
+            "description": "分组id",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          {
+            "name": "productId",
+            "in": "query",
+            "description": "商品id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "salonId",
+            "in": "query",
+            "description": "门店id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/jrpc/productGroup/deleteRelationship": {
+      "delete": {
+        "tags": [
+          "JSON_RPC_ProductGroup"
+        ],
+        "summary": "根据商品id清除关联关系",
+        "operationId": "deleteRelationshipUsingDELETE",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "description": "productId",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/jrpc/productGroup/productGroupDetail": {
+      "get": {
+        "tags": [
+          "JSON_RPC_ProductGroup"
+        ],
+        "summary": "查询分组详情",
+        "description": "包含的商品id分页返回",
+        "operationId": "productGroupDetailUsingGET",
+        "parameters": [
+          {
+            "name": "brandId",
+            "in": "query",
+            "description": "连锁品牌id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "商品分组id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "needProductId",
+            "in": "query",
+            "description": "是否需要返回所有的商品id",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "salonId",
+            "in": "query",
+            "description": "门店id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductGroupDetailDTO"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/page_template": {
+      "get": {
+        "tags": [
+          "pageTemplate"
+        ],
+        "summary": "自定义页面分页列表",
+        "operationId": "pagingPageTemplateUsingGET_1",
+        "parameters": [
+          {
+            "name": "brandId",
+            "in": "query",
+            "description": "连锁品牌id",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "页面名称",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "分页页数",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageType",
+            "in": "query",
+            "description": "页面类型",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "CUSTOM",
+                "PAGE_CATEGORY",
+                "PRODUCT",
+                "PRODUCT_GROUP",
+                "PRODUCT_CATEGORY",
+                "PERSONAL_CENTER",
+                "UNRECOGNIZED"
+              ]
+            }
+          },
+          {
+            "name": "salonId",
+            "in": "query",
+            "description": "门店id",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "分页大小",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "排序字段, ref_count/created_at",
+            "required": false,
+            "allowEmptyValue": false,
+            "example": "ref_count=desc",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "页面状态",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "DRAFT",
+                "PREVIEW",
+                "PUBLISH"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponse_PageTemplateResponse_"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "pageTemplate"
+        ],
+        "summary": "创建页面模板",
+        "description": "refId 表示引用该页面模板的实体id（如商品id，商品分组id等）， refType 表示引用该页面模板的实体类型（如商品 PRODUCT_REF，商品分组 PRODUCT_GROUP_REF, 页面分组 PAGE_CATEGORY_REF等）。后台创建好关联之后，可通过 refId 与 refType 可通过接口`page_template/get`反向检索出当前实体关联的模板，供前端渲染。如若该模板不被实体关联，则refId与refType可忽略不传",
+        "operationId": "createPageTemplateUsingPOST",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePageTemplateRequest"
+              }
+            }
+          },
+          "description": "request",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/page_template/copy": {
+      "post": {
+        "tags": [
+          "pageTemplate"
+        ],
+        "summary": "复制页面模板",
+        "operationId": "copyPageTemplateUsingPOST",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "salonId": {
+                    "description": "salonId",
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                },
+                "required": [
+                  "id",
+                  "salonId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/page_template/find": {
+      "get": {
+        "tags": [
+          "pageTemplate"
+        ],
+        "summary": "查询所有自定义页面列表, 推荐使用page分页查询",
+        "operationId": "findAllPageTemplateUsingGET",
+        "parameters": [
+          {
+            "name": "brandId",
+            "in": "query",
+            "description": "连锁品牌id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "自定义页面id列表",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "自定义页面名称",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageType",
+            "in": "query",
+            "description": "页面类型 0 = 自定义页面-CUSTOM 3 = 商品页模板-CUSTOM 4 = 商品分组-CUSTOM 5 = 分类导航-CUSTOM",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "CUSTOM",
+                "PAGE_CATEGORY",
+                "PRODUCT",
+                "PRODUCT_GROUP",
+                "PRODUCT_CATEGORY",
+                "PERSONAL_CENTER",
+                "UNRECOGNIZED"
+              ]
+            }
+          },
+          {
+            "name": "salonId",
+            "in": "query",
+            "description": "门店id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "页面状态 1-草稿-DRAFT 2-预览-PREVIEW 3-已发布-PUBLISH",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "DRAFT",
+                "PREVIEW",
+                "PUBLISH"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PageTemplateResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/page_template/find_defaults": {
+      "post": {
+        "tags": [
+          "pageTemplate"
+        ],
+        "summary": "获取默认页面模板",
+        "operationId": "findDefaultsTemplateRequestUsingPOST",
+        "parameters": [
+          {
+            "name": "brandId",
+            "in": "query",
+            "description": "连锁品牌id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageType",
+            "in": "query",
+            "description": "页面类型 0 = 自定义页面-CUSTOM 3 = 商品页模板-CUSTOM 4 = 商品分组-CUSTOM 5 = 分类导航-CUSTOM",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "CUSTOM",
+                "PAGE_CATEGORY",
+                "PRODUCT",
+                "PRODUCT_GROUP",
+                "PRODUCT_CATEGORY",
+                "PERSONAL_CENTER",
+                "UNRECOGNIZED"
+              ]
+            }
+          },
+          {
+            "name": "salonId",
+            "in": "query",
+            "description": "门店id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PageTemplateResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/page_template/get": {
+      "get": {
+        "tags": [
+          "pageTemplate"
+        ],
+        "summary": "获取页面模板详情",
+        "description": "当模板id不为空时, 优先按id查找",
+        "operationId": "getPageTemplateUsingGET",
+        "parameters": [
+          {
+            "name": "brandId",
+            "in": "query",
+            "description": "连锁品牌id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "页面模板id",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageType",
+            "in": "query",
+            "description": "引用类型 0 = 自定义页面-CUSTOM 3 = 商品页模板-CUSTOM 4 = 商品分组-CUSTOM 5 = 分类导航-CUSTOM",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "CUSTOM",
+                "PAGE_CATEGORY",
+                "PRODUCT",
+                "PRODUCT_GROUP",
+                "PRODUCT_CATEGORY",
+                "PERSONAL_CENTER",
+                "UNRECOGNIZED"
+              ]
+            }
+          },
+          {
+            "name": "refId",
+            "in": "query",
+            "description": "引用id",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "salonId",
+            "in": "query",
+            "description": "门店id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "页面状态 1-草稿-DRAFT 2-预览-PREVIEW 3-已发布-PUBLISH",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "DRAFT",
+                "PREVIEW",
+                "PUBLISH"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageTemplateResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/page_template/page": {
+      "get": {
+        "tags": [
+          "pageTemplate"
+        ],
+        "summary": "自定义页面分页列表(第二版, 支持返回下拉数据框数据)",
+        "operationId": "pagingPageTemplateUsingGET",
+        "parameters": [
+          {
+            "name": "brandId",
+            "in": "query",
+            "description": "连锁品牌id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "isSelectBox",
+            "in": "query",
+            "description": "是否为下拉框数据 默认false",
+            "required": false,
+            "example": "false",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "名称",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "页码 默认1",
+            "required": false,
+            "example": 1,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageType",
+            "in": "query",
+            "description": "页面类型 0 = 自定义页面-CUSTOM 3 = 商品页模板-CUSTOM 4 = 商品分组-CUSTOM 5 = 分类导航-CUSTOM",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "CUSTOM",
+                "PAGE_CATEGORY",
+                "PRODUCT",
+                "PRODUCT_GROUP",
+                "PRODUCT_CATEGORY",
+                "PERSONAL_CENTER",
+                "UNRECOGNIZED"
+              ]
+            }
+          },
+          {
+            "name": "salonId",
+            "in": "query",
+            "description": "门店id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "分页大小 最大500",
+            "required": false,
+            "example": 10,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "排序字段. 字段:ref_count,created_at",
+            "required": false,
+            "example": "ref_count=desc",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "页面状态 1-草稿-DRAFT 2-预览-PREVIEW 3-已发布-PUBLISH",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "DRAFT",
+                "PREVIEW",
+                "PUBLISH"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponse_PageTemplateResponse_"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/page_template/page_reference": {
+      "post": {
+        "tags": [
+          "pageTemplate"
+        ],
+        "summary": "设置页面关联",
+        "operationId": "pageReferenceUsingPOST",
+        "parameters": [
+          {
+            "name": "brandId",
+            "in": "query",
+            "description": "连锁品牌id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageType",
+            "in": "query",
+            "description": "页面类型 0 = 自定义页面-CUSTOM 3 = 商品页模板-CUSTOM 4 = 商品分组-CUSTOM 5 = 分类导航-CUSTOM",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "CUSTOM",
+                "PAGE_CATEGORY",
+                "PRODUCT",
+                "PRODUCT_GROUP",
+                "PRODUCT_CATEGORY",
+                "PERSONAL_CENTER",
+                "UNRECOGNIZED"
+              ]
+            }
+          },
+          {
+            "name": "refId",
+            "in": "query",
+            "description": "引用id",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "salonId",
+            "in": "query",
+            "description": "门店id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "templateId",
+            "in": "query",
+            "description": "页面模板id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/page_template/priority": {
+      "post": {
+        "tags": [
+          "pageTemplate"
+        ],
+        "summary": "修改排序优先级",
+        "operationId": "priorityUsingPOST",
+        "parameters": [
+          {
+            "name": "brandId",
+            "in": "query",
+            "description": "连锁品牌id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "模板id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "priority",
+            "in": "query",
+            "description": "优先级",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "salonId",
+            "in": "query",
+            "description": "门店id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/page_template/set_default": {
+      "post": {
+        "tags": [
+          "pageTemplate"
+        ],
+        "summary": "设为首页、默认页面模板",
+        "operationId": "setAsDefaultUsingPOST",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "页面模板id",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageType",
+            "in": "query",
+            "description": "页面类型",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "CUSTOM",
+                "PAGE_CATEGORY",
+                "PRODUCT",
+                "PRODUCT_GROUP",
+                "PRODUCT_CATEGORY",
+                "PERSONAL_CENTER",
+                "UNRECOGNIZED"
+              ]
+            }
+          },
+          {
+            "name": "salonId",
+            "in": "query",
+            "description": "门店id",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/page_template/{id}": {
+      "put": {
+        "tags": [
+          "pageTemplate"
+        ],
+        "summary": "更新页面模板",
+        "operationId": "updatePageTemplateUsingPUT",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePageTemplateRequest"
+              }
+            }
+          },
+          "description": "request",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "pageTemplate"
+        ],
+        "summary": "删除页面模板",
+        "operationId": "deletePageTemplateUsingDELETE",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/product_group": {
+      "get": {
+        "tags": [
+          "ProductGroup"
+        ],
+        "summary": "商品分组列表",
+        "operationId": "listGroupUsingGET",
+        "parameters": [
+          {
+            "name": "brandId",
+            "in": "query",
+            "description": "连锁品牌id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "excludes",
+            "in": "query",
+            "description": "排除id集合",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          {
+            "name": "isDefault",
+            "in": "query",
+            "description": "是否默认",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "分组名称",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "分页页数 默认1",
+            "required": false,
+            "example": 1,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "productStatus",
+            "in": "query",
+            "description": "商品的上下架，只需要上架的商品则传1, 其他默认不传",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "salonId",
+            "in": "query",
+            "description": "门店id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "分页大小 默认10 最大500",
+            "required": false,
+            "example": 10,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "排序字段(created_at,product_count)",
+            "required": false,
+            "example": "created_at=desc",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponse_ProductGroupResponse_"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "ProductGroup"
+        ],
+        "summary": "添加商品分组",
+        "operationId": "createGroupUsingPOST",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProductGroupRequest"
+              }
+            }
+          },
+          "description": "request",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/product_group/find": {
+      "get": {
+        "tags": [
+          "ProductGroup"
+        ],
+        "summary": "批量查询商品分组",
+        "operationId": "findGroupUsingGET",
+        "parameters": [
+          {
+            "name": "brandId",
+            "in": "query",
+            "description": "连锁品牌id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "excludes",
+            "in": "query",
+            "description": "排除id集合",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "分组id集合",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          {
+            "name": "isDefault",
+            "in": "query",
+            "description": "是否查询默认分组",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "markId",
+            "in": "query",
+            "description": "标记id, 若非空，只返回大于该id的商品分组",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "分组名",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "salonId",
+            "in": "query",
+            "description": "门店id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductGroupResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/product_group/newest": {
+      "get": {
+        "tags": [
+          "ProductGroup"
+        ],
+        "summary": "获取当前最新的商品分组",
+        "description": "用于分类导航标记当时最新的分组id",
+        "operationId": "newestGroupUsingGET",
+        "parameters": [
+          {
+            "name": "brandId",
+            "in": "query",
+            "description": "连锁品牌id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "salonId",
+            "in": "query",
+            "description": "门店id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductGroupResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/product_group/{id}": {
+      "get": {
+        "tags": [
+          "ProductGroup"
+        ],
+        "summary": "商品分组详情",
+        "operationId": "getGroupUsingGET",
+        "parameters": [
+          {
+            "name": "brandId",
+            "in": "query",
+            "description": "连锁品牌id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "salonId",
+            "in": "query",
+            "description": "门店id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductGroupResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "ProductGroup"
+        ],
+        "summary": "编辑商品分组",
+        "operationId": "editGroupUsingPUT",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProductGroupRequest"
+              }
+            }
+          },
+          "description": "request",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "ProductGroup"
+        ],
+        "summary": "删除商品分组",
+        "operationId": "delGroupUsingDELETE",
+        "parameters": [
+          {
+            "name": "brandId",
+            "in": "query",
+            "description": "连锁品牌id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "salonId",
+            "in": "query",
+            "description": "门店id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "//mmf-dev.meimeifa.cn/api/z0/custom-mall-fusion/"
+    }
+  ],
+  "components": {
+    "requestBodies": {
+      "PageReferenceReq": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/PageReferenceReq"
+            }
+          }
+        },
+        "description": "req",
+        "required": true
+      }
+    },
+    "securitySchemes": {
+      "Token": {
+        "type": "apiKey",
+        "name": "token",
+        "in": "header"
+      }
+    },
+    "schemas": {
+      "CommonsApiResp": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string"
+          }
+        },
+        "title": "CommonsApiResp"
+      },
+      "CreatePageTemplateRequest": {
+        "type": "object",
+        "required": [
+          "brandId",
+          "content",
+          "name",
+          "pageType",
+          "salonId",
+          "status"
+        ],
+        "properties": {
+          "brandId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "连锁品牌id"
+          },
+          "content": {
+            "type": "string",
+            "description": "页面内容"
+          },
+          "cover": {
+            "type": "string",
+            "description": "封面图"
+          },
+          "description": {
+            "type": "string",
+            "description": "页面描述"
+          },
+          "name": {
+            "type": "string",
+            "description": "页面名称"
+          },
+          "pageType": {
+            "type": "string",
+            "description": "页面类型 0 = 自定义页面-CUSTOM 3 = 商品页模板-CUSTOM 4 = 商品分组-CUSTOM 5 = 分类导航-CUSTOM",
+            "enum": [
+              "CUSTOM",
+              "PAGE_CATEGORY",
+              "PRODUCT",
+              "PRODUCT_GROUP",
+              "PRODUCT_CATEGORY",
+              "PERSONAL_CENTER",
+              "UNRECOGNIZED"
+            ]
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32",
+            "description": "排序优先级"
+          },
+          "refId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "引用id"
+          },
+          "salonId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "门店id"
+          },
+          "status": {
+            "type": "string",
+            "description": "页面状态 1-草稿-DRAFT 2-预览-PREVIEW 3-已发布-PUBLISH",
+            "enum": [
+              "DRAFT",
+              "PREVIEW",
+              "PUBLISH"
+            ]
+          }
+        },
+        "title": "CreatePageTemplateRequest"
+      },
+      "CreateProductGroupRequest": {
+        "type": "object",
+        "required": [
+          "brandId",
+          "name",
+          "salonId",
+          "sortFirst",
+          "sortSecond"
+        ],
+        "properties": {
+          "brandId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "连锁品牌id"
+          },
+          "description": {
+            "type": "string",
+            "description": "分组简介"
+          },
+          "detail": {
+            "type": "string",
+            "description": "分组详情(富文本)"
+          },
+          "name": {
+            "type": "string",
+            "description": "分组名称"
+          },
+          "salonId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "门店id"
+          },
+          "sortFirst": {
+            "type": "string",
+            "description": "一级排序类型",
+            "enum": [
+              "NEWEST",
+              "HOTTEST",
+              "PRIORITY",
+              "UNRECOGNIZED"
+            ]
+          },
+          "sortSecond": {
+            "type": "string",
+            "description": "二级排序类型",
+            "enum": [
+              "NEWEST",
+              "HOTTEST",
+              "PRIORITY",
+              "UNRECOGNIZED"
+            ]
+          }
+        },
+        "title": "CreateProductGroupRequest"
+      },
+      "EmallConfigReq": {
+        "type": "object",
+        "properties": {
+          "brandId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "连锁Id"
+          },
+          "salonId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "店铺Id"
+          }
+        },
+        "title": "EmallConfigReq"
+      },
+      "EmallConfigRequest": {
+        "type": "object",
+        "required": [
+          "brandId",
+          "salonId"
+        ],
+        "properties": {
+          "brandId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "连锁品牌id"
+          },
+          "config": {
+            "type": "object"
+          },
+          "salonId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "门店id"
+          }
+        },
+        "title": "EmallConfigRequest"
+      },
+      "EmallConfigResp": {
+        "type": "object",
+        "properties": {
+          "config": {
+            "type": "object",
+            "description": "店铺配置"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "homePageId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "主页模板ID"
+          },
+          "minePageId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "个人中心页面模板ID"
+          },
+          "productPageId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "默认商品页模板ID"
+          },
+          "salonId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "商铺ID"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "title": "EmallConfigResp"
+      },
+      "EmallConfigResponse": {
+        "type": "object",
+        "properties": {
+          "config": {
+            "type": "object",
+            "description": "店铺配置"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "enable": {
+            "type": "boolean",
+            "description": "是否启用 自定义商城"
+          },
+          "homePageId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "主页 模板ID"
+          },
+          "minePageId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "个人中心页面 模板ID"
+          },
+          "productPageId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "默认商品页 模板ID"
+          },
+          "salonId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "商铺 ID"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "title": "EmallConfigResponse"
+      },
+      "InitCassSalonCreatedRequest": {
+        "type": "object",
+        "required": [
+          "brandId",
+          "salonId",
+          "salonName"
+        ],
+        "properties": {
+          "brandId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "连锁品牌id"
+          },
+          "salonId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "门店id"
+          },
+          "salonName": {
+            "type": "string",
+            "description": "店铺名称"
+          }
+        },
+        "title": "InitCassSalonCreatedRequest"
+      },
+      "InitCustomMallReq": {
+        "type": "object",
+        "properties": {
+          "brandId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "连锁Id"
+          },
+          "salonId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "店铺Id"
+          },
+          "salonName": {
+            "type": "string",
+            "description": "店铺名称"
+          }
+        },
+        "title": "InitCustomMallReq"
+      },
+      "PageReferenceReq": {
+        "type": "object",
+        "required": [
+          "pageType",
+          "refId",
+          "templateId"
+        ],
+        "properties": {
+          "brandId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "连锁Id"
+          },
+          "pageType": {
+            "type": "integer",
+            "format": "int32",
+            "description": "页面类型 0 = 自定义页面-CUSTOM 3 = 商品页模板-CUSTOM 4 = 商品分组-CUSTOM 5 = 分类导航-CUSTOM"
+          },
+          "refId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "引用源Id(商品Id)"
+          },
+          "salonId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "店铺Id"
+          },
+          "templateId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "页面模板id"
+          }
+        },
+        "title": "PageReferenceReq"
+      },
+      "PageTemplateResponse": {
+        "type": "object",
+        "properties": {
+          "brandId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "连锁品牌id"
+          },
+          "content": {
+            "type": "string",
+            "description": "页面内容"
+          },
+          "cover": {
+            "type": "string",
+            "description": "封面"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "创建时间"
+          },
+          "description": {
+            "type": "string",
+            "description": "描述"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "记录id"
+          },
+          "isDefault": {
+            "type": "boolean",
+            "description": "是否默认模板/是否使用中/是否设为主页"
+          },
+          "name": {
+            "type": "string",
+            "description": "页面名称"
+          },
+          "pageType": {
+            "type": "string",
+            "description": "页面类型 0 = 自定义页面-CUSTOM 3 = 商品页模板-CUSTOM 4 = 商品分组-CUSTOM 5 = 分类导航-CUSTOM",
+            "enum": [
+              "CUSTOM",
+              "PAGE_CATEGORY",
+              "PRODUCT",
+              "PRODUCT_GROUP",
+              "PRODUCT_CATEGORY",
+              "PERSONAL_CENTER",
+              "UNRECOGNIZED"
+            ]
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32",
+            "description": "排序优先级"
+          },
+          "refCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "被引用数"
+          },
+          "salonId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "门店id"
+          },
+          "status": {
+            "type": "string",
+            "description": "页面状态 1-草稿-DRAFT 2-预览-PREVIEW 3-已发布-PUBLISH",
+            "enum": [
+              "DRAFT",
+              "PREVIEW",
+              "PUBLISH"
+            ]
+          }
+        },
+        "title": "PageTemplateResponse"
+      },
+      "ProductGroupDetailDTO": {
+        "type": "object",
+        "properties": {
+          "brandId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "连锁品牌id"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "创建时间"
+          },
+          "description": {
+            "type": "string",
+            "description": "分组简介"
+          },
+          "detail": {
+            "type": "string",
+            "description": "分组详情(富文本)"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "记录id"
+          },
+          "isDefault": {
+            "type": "boolean",
+            "description": "是否系统默认分组"
+          },
+          "name": {
+            "type": "string",
+            "description": "分组名称"
+          },
+          "productCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "商品数"
+          },
+          "productIds": {
+            "type": "array",
+            "description": "组内商品id",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "salonId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "门店id"
+          },
+          "sortFirst": {
+            "type": "string",
+            "description": "一级排序",
+            "enum": [
+              "NEWEST",
+              "HOTTEST",
+              "PRIORITY",
+              "UNRECOGNIZED"
+            ]
+          },
+          "sortSecond": {
+            "type": "string",
+            "description": "二级排序",
+            "enum": [
+              "NEWEST",
+              "HOTTEST",
+              "PRIORITY",
+              "UNRECOGNIZED"
+            ]
+          }
+        },
+        "title": "ProductGroupDetailDTO"
+      },
+      "ProductGroupResponse": {
+        "type": "object",
+        "properties": {
+          "brandId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "连锁品牌id"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "创建时间"
+          },
+          "description": {
+            "type": "string",
+            "description": "分组简介"
+          },
+          "detail": {
+            "type": "string",
+            "description": "分组详情(富文本)"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "记录id"
+          },
+          "isDefault": {
+            "type": "boolean",
+            "description": "是否系统默认分组"
+          },
+          "name": {
+            "type": "string",
+            "description": "分组名称"
+          },
+          "productCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "商品数"
+          },
+          "salonId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "门店id"
+          },
+          "sortFirst": {
+            "type": "string",
+            "description": "一级排序",
+            "enum": [
+              "NEWEST",
+              "HOTTEST",
+              "PRIORITY",
+              "UNRECOGNIZED"
+            ]
+          },
+          "sortSecond": {
+            "type": "string",
+            "description": "二级排序",
+            "enum": [
+              "NEWEST",
+              "HOTTEST",
+              "PRIORITY",
+              "UNRECOGNIZED"
+            ]
+          }
+        },
+        "title": "ProductGroupResponse"
+      },
+      "UpdateEmallConfigEnabledRequest": {
+        "type": "object",
+        "required": [
+          "brandId",
+          "enabled",
+          "salonId",
+          "slaonName"
+        ],
+        "properties": {
+          "brandId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "连锁品牌id"
+          },
+          "enabled": {
+            "type": "boolean",
+            "example": false,
+            "description": "是否开启自定义商城 默认false"
+          },
+          "salonId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "门店id"
+          },
+          "slaonName": {
+            "type": "string",
+            "description": "店铺名称"
+          }
+        },
+        "title": "UpdateEmallConfigEnabledRequest"
+      },
+      "UpdatePageTemplateRequest": {
+        "type": "object",
+        "required": [
+          "brandId",
+          "content",
+          "name",
+          "pageType",
+          "salonId",
+          "status"
+        ],
+        "properties": {
+          "brandId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "连锁品牌id"
+          },
+          "content": {
+            "type": "string",
+            "description": "页面内容"
+          },
+          "cover": {
+            "type": "string",
+            "description": "封面图"
+          },
+          "description": {
+            "type": "string",
+            "description": "页面描述"
+          },
+          "name": {
+            "type": "string",
+            "description": "页面名称"
+          },
+          "pageType": {
+            "type": "string",
+            "description": "页面类型 0 = 自定义页面-CUSTOM 3 = 商品页模板-CUSTOM 4 = 商品分组-CUSTOM 5 = 分类导航-CUSTOM",
+            "enum": [
+              "CUSTOM",
+              "PAGE_CATEGORY",
+              "PRODUCT",
+              "PRODUCT_GROUP",
+              "PRODUCT_CATEGORY",
+              "PERSONAL_CENTER",
+              "UNRECOGNIZED"
+            ]
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32",
+            "description": "排序优先级"
+          },
+          "refId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "引用ID"
+          },
+          "salonId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "门店id"
+          },
+          "status": {
+            "type": "string",
+            "description": "页面状态 1-草稿-DRAFT 2-预览-PREVIEW 3-已发布-PUBLISH",
+            "enum": [
+              "DRAFT",
+              "PREVIEW",
+              "PUBLISH"
+            ]
+          }
+        },
+        "title": "UpdatePageTemplateRequest"
+      },
+      "UpdateProductGroupRequest": {
+        "type": "object",
+        "required": [
+          "brandId",
+          "name",
+          "salonId",
+          "sortFirst",
+          "sortSecond"
+        ],
+        "properties": {
+          "brandId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "连锁品牌id"
+          },
+          "description": {
+            "type": "string",
+            "description": "分组简介"
+          },
+          "detail": {
+            "type": "string",
+            "description": "分组详情(富文本)"
+          },
+          "name": {
+            "type": "string",
+            "description": "分组名称"
+          },
+          "salonId": {
+            "type": "integer",
+            "format": "int32",
+            "description": "门店id"
+          },
+          "sortFirst": {
+            "type": "string",
+            "description": "一级排序类型",
+            "enum": [
+              "NEWEST",
+              "HOTTEST",
+              "PRIORITY",
+              "UNRECOGNIZED"
+            ]
+          },
+          "sortSecond": {
+            "type": "string",
+            "description": "二级排序类型",
+            "enum": [
+              "NEWEST",
+              "HOTTEST",
+              "PRIORITY",
+              "UNRECOGNIZED"
+            ]
+          }
+        },
+        "title": "UpdateProductGroupRequest"
+      },
+      "PageResponse_PageTemplateResponse_": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PageTemplateResponse"
+            }
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "PageResponse«PageTemplateResponse»"
+      },
+      "PageResponse_ProductGroupResponse_": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductGroupResponse"
+            }
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "PageResponse«ProductGroupResponse»"
+      }
+    }
+  }
+}

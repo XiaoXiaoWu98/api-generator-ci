@@ -1,0 +1,56 @@
+{
+    "name": "api-generator-ci",
+    "version": "1.0.0",
+    "description": "根据接口文档自动生成类型文件以及接口方法",
+    "main": "./dist/index",
+    "scripts": {
+        "dev": "npm run build -- --watch",
+        "build": "tsup src/index.ts --dts --format cjs",
+        "pre-build": "node ./scripts/pre-build.ts prd",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "test:bin": "node ./bin/index.js -i"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/FiveTokyo/api-generator-ci.git"
+    },
+    "files": [
+        "dist",
+        "template",
+        "package.json",
+        "README.md",
+        "bin"
+    ],
+    "dependencies": {
+        "axios": "^0.21.1",
+        "chalk": "^4.1.1",
+        "commander": "^7.2.0",
+        "crypto": "^1.0.1",
+        "enquirer": "^2.3.6",
+        "figures": "^3.2.0",
+        "fs-extra": "^10.0.0",
+        "json-schema-to-typescript": "^10.1.4",
+        "openapi3-ts": "^2.0.2",
+        "prettier": "^2.3.0",
+        "program": "^1.0.0",
+        "reserved-words": "^0.1.2",
+        "squirrelly": "^8.0.8",
+        "swagger2openapi": "^7.0.8"
+    },
+    "devDependencies": {
+        "@types/fs-extra": "^9.0.11",
+        "@types/node": "^14.14.31",
+        "@types/node-fetch": "^2.5.8",
+        "@types/reserved-words": "^0.1.0",
+        "node-fetch": "^2.6.1",
+        "ts-node": "^9.1.1",
+        "tsup": "^4.11.0",
+        "typescript": "^4.2.2"
+    },
+    "author": "tokyo <15211420607@163.com>",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/FiveTokyo/api-generator-ci/issues"
+    },
+    "homepage": "https://github.com/FiveTokyo/api-generator-ci#readme"
+}

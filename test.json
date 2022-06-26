@@ -1,0 +1,83 @@
+{
+    "type": "object",
+    "properties": {
+      "code": {
+        "type": "integer",
+        "title": "",
+        "nullable": true,
+        "description": "状态码"
+      },
+      "msg": {
+        "type": "string",
+        "nullable": true,
+        "title": "",
+        "description": "提示信息"
+      },
+      "data": {
+        "type": "object",
+        "properties": {
+          "user_name": {
+            "type": "string",
+            "title": "",
+            "description": "用户名"
+          },
+          "id": {
+            "type": "string",
+            "title": "",
+            "description": "唯一标识"
+          },
+          "phone": {
+            "type": "string",
+            "title": "",
+            "description": "电话号码"
+          },
+          "info": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": "string",
+                "title": "",
+                "description": "地址"
+              }
+            },
+            "title": "",
+            "x-apifox-orders": [
+              "address"
+            ],
+            "required": [
+              "address"
+            ],
+            "description": "具体信息",
+            "x-apifox-ignore-properties": []
+          }
+        },
+        "x-apifox-orders": [
+          "user_name",
+          "id",
+          "phone",
+          "info"
+        ],
+        "required": [
+          "user_name",
+          "id",
+          "phone",
+          "info"
+        ],
+        "nullable": true,
+        "title": "",
+        "description": "数据",
+        "x-apifox-ignore-properties": []
+      }
+    },
+    "x-apifox-orders": [
+      "code",
+      "msg",
+      "data"
+    ],
+    "required": [
+      "code",
+      "msg",
+      "data"
+    ],
+    "x-apifox-ignore-properties": []
+  }
