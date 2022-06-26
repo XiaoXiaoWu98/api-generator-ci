@@ -1,24 +1,26 @@
-const path = require('path');
-const { preBuild } = require('project-build-ci');
+import { preBuild, configOptions } from 'project-build-ci'
+
+const path = require('path')
 
 preBuild({
-  apps: {
-    label: 'swagger-build',
-    name: 'swagger-build',
-    projectPath: path.join(__dirname, '../'),
-  },
+    apps: {
+        label: 'swagger-build',
+        name: 'swagger-build',
+        projectPath: path.join(__dirname, '../'),
+    },
 
-  envs: [
-    {
-      name: 'prd',
-      identifier: '',
-      releaseBranch: 'release',
-    },
-    {
-      name: 'dev',
-      identifier: '',
-      releaseBranch: 'dev',
-    },
-  ],
-  prdAppEnv: 'prd',
-});
+    envs: [
+        {
+            name: 'prd',
+            identifier: '',
+            releaseBranch: 'release',
+            isNpm: true
+        },
+        {
+            name: 'dev',
+            identifier: '',
+            releaseBranch: 'dev',
+        },
+    ],
+    prdAppEnv: 'prd',
+})
