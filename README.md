@@ -1,4 +1,6 @@
-## api-build
+## 介绍
+
+根据openapi swagger两种数据格式json生成相应的接口以及数据类型，
 
 ### 安装
 
@@ -65,9 +67,13 @@ const path = require('path')
 
 module.exports = defineConfigs([
     {
+        //json数据路径 可以为url也可以为json文件
         api: 'http://127.0.0.1:4523/export/openapi/6',
+        //生成文件目录
         sdkDir: path.join(__dirname, './temp/i/api/strapi'),
+        //数据类型命名空间
         namespace: 'ApiStrapi',
+        //过滤文档某些不需要用的又没删除接口
         filter: [
             (api) => {
                 const liteApis = ['/user/uerInfo/{id}']
