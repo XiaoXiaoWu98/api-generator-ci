@@ -32,7 +32,7 @@
         "enquirer": "^2.3.6",
         "figures": "^3.2.0",
         "fs-extra": "^10.0.0",
-        "json-schema-to-typescript": "^10.1.4",
+        "json-schema-to-typescript": "^10.1.5",
         "openapi3-ts": "^2.0.2",
         "prettier": "^2.3.0",
         "project-build-ci": "^1.0.12",

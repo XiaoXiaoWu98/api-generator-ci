@@ -1,6 +1,6 @@
+import { JSONSchema } from 'json-schema-to-typescript'
 import { APIDataType, Definitions } from './apiType'
 import { firstUpperCase, genInterfaceName } from './apiLib'
-import { JSONSchema } from 'json-schema-to-typescript'
 
 /**
  * 定义接口方法名称

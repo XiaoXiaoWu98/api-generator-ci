@@ -1,4 +1,4 @@
-import {JSONSchema} from 'json-schema-to-typescript'
+import { JSONSchema } from 'json-schema-to-typescript'
 import { APIDataType } from './apiType'
 import { toSafeString } from 'json-schema-to-typescript/dist/src/utils'
 export function firstUpperCase(str: string) {

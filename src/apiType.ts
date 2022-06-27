@@ -19,9 +19,7 @@ export interface Definitions {
     [name: string]: JSONSchema
 }
 
-export type FormatQueryType = (
-    name: string,
-) => string | string[] | null
+export type FormatQueryType = (name: string) => string | string[] | null
 
 export interface Options {
     /*!

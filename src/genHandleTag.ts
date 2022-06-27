@@ -1,5 +1,6 @@
 import { APIDataType, Definitions } from './apiType'
 import { compile, JSONSchema } from 'json-schema-to-typescript'
+
 import { toSafeString } from 'json-schema-to-typescript/dist/src/utils'
 import { genInterfaceName } from './apiLib'
 import {} from './genHandleTag'
@@ -23,9 +24,7 @@ function defFormatQueryType(name: string, api: APIDataType) {
  * 生成 query / parameter 类型
  * @param api
  */
-export async function genApiQuery(
-    api: APIDataType,
-) {
+export async function genApiQuery(api: APIDataType) {
     if (api.parameters) {
         // @ts-ignore
         const query = api.parameters.filter((v) => v.in === 'query')
@@ -44,7 +43,7 @@ export async function genApiQuery(
                     // @ts-ignore
                     ...q.schema,
                     // @ts-ignore
-                    type:  q.schema.type,
+                    type: q.schema.type,
                 }
             })
 
@@ -87,7 +86,7 @@ export async function genApiQuery(
                     // @ts-ignore
                     ...q.schema,
                     // @ts-ignore
-                    type:  q.schema.type,
+                    type: q.schema.type,
                 }
             })
 
@@ -273,7 +272,10 @@ function getApiType(schema: JSONSchema, definitions: Definitions): string {
                     const indexType = schema.additionalProperties
                         ? schema.additionalProperties === true
                             ? `any`
-                            : getApiType(schema.additionalProperties, definitions)
+                            : getApiType(
+                                  schema.additionalProperties,
+                                  definitions
+                              )
                         : undefined
                     if (indexType) {
                         props.push(`[key: string]: ${indexType}`)
