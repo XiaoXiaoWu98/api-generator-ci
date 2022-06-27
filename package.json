@@ -1,6 +1,6 @@
 {
     "name": "api-generator-ci",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "根据接口文档自动生成类型文件以及接口方法",
     "main": "./dist/index",
     "types": "index.d.ts",
