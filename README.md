@@ -22,7 +22,7 @@ api-build -c ./apiBuildConfig.js -i
 ```
 
 ::: TIP
--c : 设定配置文件所在地址，不传则默认取终端当前目录下的 genapiconfig.js
+-c : 设定配置文件所在地址，不传则默认取终端当前目录下的 apiBuildConfig.js
 :::
 
 #### 参数详细说明
