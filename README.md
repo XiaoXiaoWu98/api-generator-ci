@@ -7,10 +7,10 @@
 ```
 
 ```
-api-build -c [configpath] -i
+api-build [options]
 Options:
-  --configpath        //文件路径
-  --i                  //是否根据选择导出
+  -c --configpath        //文件路径
+  -i                  //是否根据选择导出.是
 ```
 
 ### cli 使用

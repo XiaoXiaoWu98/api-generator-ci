@@ -10,7 +10,7 @@
     "scripts": {
         "dev": "npm run build -- --watch",
         "build": "tsup src/index.ts --dts --format cjs",
-        "api-build": "ts-node ./scripts/pre-build.ts",
+        "pro-build": "ts-node ./scripts/pro-build.ts",
         "test:bin": "node ./bin/index.js -i"
     },
     "repository": {
@@ -35,6 +35,7 @@
         "json-schema-to-typescript": "^10.1.4",
         "openapi3-ts": "^2.0.2",
         "prettier": "^2.3.0",
+        "project-build-ci": "^1.0.12",
         "qs": "^6.10.5",
         "squirrelly": "^8.0.8",
         "swagger2openapi": "^7.0.8"
