@@ -20,7 +20,7 @@ program
         if (c) {
             configDir = path.join(process.cwd(), c)
         } else {
-            // 默认取项目根目录下的genapiconfig.js
+            // 默认取项目根目录下的apiBuildConfig.js
             configDir = path.join(process.cwd(), './apiBuildConfig.js')
         }
 
