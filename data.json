@@ -3,7 +3,7 @@
   "info": {
     "description": "调用API需要通过token header进行身份验证。",
     "version": "0.0.1",
-    "title": "大伊智-自定义商城APIs",
+    "title": "自定义商城APIs",
     "contact": {
       "name": "Java Team"
     }

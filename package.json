@@ -1,14 +1,16 @@
 {
     "name": "api-generator-ci",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "根据接口文档自动生成类型文件以及接口方法",
     "main": "./dist/index",
     "types": "index.d.ts",
+    "bin": {
+        "api-build": "./bin/index.js"
+    },
     "scripts": {
         "dev": "npm run build -- --watch",
         "build": "tsup src/index.ts --dts --format cjs",
-        "pre-build": "ts-node ./scripts/pre-build.ts prd",
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "api-build": "ts-node ./scripts/pre-build.ts",
         "test:bin": "node ./bin/index.js -i"
     },
     "repository": {
@@ -23,19 +25,17 @@
         "bin"
     ],
     "dependencies": {
-        "axios": "^0.27.2",
-        "chalk": "^5.0.1",
+        "axios": "^0.21.1",
+        "chalk": "^4.1.1",
         "commander": "^7.2.0",
         "crypto": "^1.0.1",
         "enquirer": "^2.3.6",
         "figures": "^3.2.0",
         "fs-extra": "^10.0.0",
-        "json-schema-to-typescript": "^10.1.5",
+        "json-schema-to-typescript": "^10.1.4",
         "openapi3-ts": "^2.0.2",
         "prettier": "^2.3.0",
-        "program": "^1.0.0",
-        "project-build-ci": "^1.0.10",
-        "reserved-words": "^0.1.2",
+        "qs": "^6.10.5",
         "squirrelly": "^8.0.8",
         "swagger2openapi": "^7.0.8"
     },
@@ -43,7 +43,6 @@
         "@types/fs-extra": "^9.0.11",
         "@types/node": "^14.14.31",
         "@types/node-fetch": "^2.5.8",
-        "@types/reserved-words": "^0.1.0",
         "node-fetch": "^2.6.1",
         "ts-node": "^9.1.1",
         "tsup": "^4.11.0",

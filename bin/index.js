@@ -21,7 +21,7 @@ program
             configDir = path.join(process.cwd(), c)
         } else {
             // 默认取项目根目录下的genapiconfig.js
-            configDir = path.join(process.cwd(), './genapiconfig.js')
+            configDir = path.join(process.cwd(), './apiBuildConfig.js')
         }
 
         if (!fs.existsSync(configDir)) {

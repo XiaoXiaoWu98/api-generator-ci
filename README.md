@@ -1,26 +1,23 @@
-## swagger-build
-
-
+## api-build
 
 ### 安装
 
 ```bash
-
+    npm i api-generator-ci
 ```
 
-### 发布到私有库
-
-```bash
-yarn pre-build
+```
+api-build -c [configpath] -i
+Options:
+  --configpath        //文件路径
+  --i                  //是否根据选择导出
 ```
 
 ### cli 使用
 
 ```bash
-swagger-build -c ./genapiconfig.js
+api-build -c ./apiBuildConfig.js -i
 
-# 交互式，可以选择 build 哪些 api
-swagger-build -c ./genapiconfig.js -i
 
 ```
 
@@ -28,23 +25,7 @@ swagger-build -c ./genapiconfig.js -i
 -c : 设定配置文件所在地址，不传则默认取终端当前目录下的 genapiconfig.js
 :::
 
-### 配置
-
-```ts
-// config.js
-const { defineConfigs } = require('swagger-build')
-const path = require('path')
-
-module.exports = defineConfigs([
-    {
-        api: 'https://fe.yzone.co/yapi/292/json',
-        sdkDir: path.join(__dirname, './src/api/gw'),
-        namespace: 'ApiGW',
-    },
-])
-```
-
-#### 详细说明
+#### 参数详细说明
 
 ```ts
 interface Options {
@@ -69,138 +50,138 @@ interface Options {
     filter?: Array<(api: APIDataType, tag?: string) => boolean>
 
     /**
-     * 格式化 api data
-     * 注：程序先执行过滤，再调用格式化
-     */
-    formatApiData?: (apiData: TagAPIDataType) => TagAPIDataType
-
-    /**
-     * 格式化 query 类型
-     * 如， id 要返回 'number | strng'
-     */
-    formatQueryType?: (
-        name: string,
-        api: APIDataType
-    ) => string | string[] | null
-
-    /**
      * 完成后执行
      */
     done?: Function
 }
 ```
 
-### API 请求参数和返回值修改
-
-思路是使用 api 的接口地址和请求方法作为 key, 配置该接口的请求参数和返回值的修改方法，然后在 axios 拦截器中根据请求的信息获取到接口的修改配置，并根据配置修改对应的请求参数或返回值。
-
-> 每个配置生成的接口，默认会生成一个 $transformApi 的对象，可以方便的配置需要修改内容。
-
-#### 类型定义
+### 文件配置
 
 ```ts
-// $transformApi
-// 每个配置会有不同的类型定义
-type ConfigMap = Record<
-    string,
+// config.js
+const { defineConfigs } = require('api-generator-ci')
+const path = require('path')
+
+module.exports = defineConfigs([
     {
-        // 修改 get 请求参数的方法 (url 参数)
-        params?: (
-            params: ApiGW.QueryGroupbuyBoardDataOrder
-        ) => ApiGW.QueryGroupbuyBoardDataOrder
-        /** 修改 post, delete, put 等参数请求的方法 */
-        body?: (
-            params: ApiGW.QueryGroupbuyBoardDataOrderBody
-        ) => ApiGW.QueryGroupbuyBoardDataOrderBody
-        // 修改返回值的方法
-        response?: (
-            res: ApiGW.ResGroupbuyBoardDataOrder
-        ) => ApiGW.ResGroupbuyBoardDataOrder
-    }
->
-
-/**
- * 配置需要转换的 api
- */
-function config(cfg: ConfigMap): void
-
-/**
- * 获取 api 转换配置
- */
-function getConfig(): ConfigMap
-```
-
-#### 转换例子
-
--   第一步，设置修改的内容
--   第二步，在拦截器应用这些修改配置
-
-##### 第一步，使用 $transformApi 修改接口
-
-```ts
-// 修改 api
-import { $transformApi } from '@/api/gw' // 假设生成了一个 gw 的模块
-
-$transformApi.config({
-    'get_/groupbuy-board/data/order': {
-        params: (params) => {
-            params.id = 111
-            return {
-                ...params,
-                version: '可以新增字段',
-            }
-        },
-        response: (res) => {
-            res.order_amount = toYuan(res.order_amount)
-            return res
-        },
+        api: 'http://127.0.0.1:4523/export/openapi/6',
+        sdkDir: path.join(__dirname, './temp/i/api/strapi'),
+        namespace: 'ApiStrapi',
+        filter: [
+            (api) => {
+                const liteApis = ['/user/uerInfo/{id}']
+                if (liteApis.includes(api.path)) return true
+                return false
+            },
+        ],
     },
-})
-```
+])
 
-(建议) 将所有配置合并在一起
+//输出列子
 
-```ts
-// config.ts
-import { $transformApi as $GwTransformApi } from '@/api/gw'
-import { $transformApi as $OtherTransformApi } from '@/api/other'
+//intex.ts
 
-export default {
-    ...$GwTransformApi.getConfig(),
-    ...$OtherTransformApi.getConfig(),
+/**
+ * ------------------------------------
+ * !!! 不要修改,这是生成的代码 !!!
+ * ------------------------------------
+ */
+import * as test from './test'
+
+export { test }
+
+//test.ts 此文件为接口组名我自己定义的
+
+// @ts-nocheck
+
+/**
+ * ------------------------------------
+ * !!! 不要修改,这是生成的代码 !!!
+ * ------------------------------------
+ */
+import request from '../request'
+
+type Options = Parameters<typeof request>['1']
+
+/**
+ * first_test * */
+export function userInfoId(
+    paths: ApiStrapi.ParamUserUserInfoid,
+    data: ApiStrapi.ReqUserUserInfoid,
+    options: Options = {}
+) {
+    const headers = { 'content-type': 'application/json' }
+
+    const url = '/user/userInfo/{id}'.replace('{id}', String(paths['id']))
+    return request<ApiStrapi.ResUserUserInfoid>(
+        url,
+        {
+            method: 'GET',
+            data,
+            apiPath: '/user/userInfo/{id}',
+            ...options,
+            headers: {
+                ...headers,
+                ...(options.headers || {}),
+            },
+        },
+        'ApiStrapi'
+    )
 }
-```
 
-##### 第二步， 使用 axios 拦截器修改请求
+//typings.d.ts
 
-```ts
-import configs from 'config.js'
-// ax 是 axios 的实例
-import ax from './request'
-
-// 请求拦截器
-ax.interceptors.request.use((options: AxiosRequestConfig) => {
-    const key = `${options.method}_${options.url}`
-    const config = configs[key]
-    if (config?.params) {
-        options.params = config.params(options.params)
+/**
+ * ------------------------------------
+ * !!! 不要修改,这是生成的代码 !!!
+ * ------------------------------------
+ */
+// tslint:disable
+declare namespace ApiStrapi {
+    export interface ResUserUserInfoid {
+        /**
+         * 状态码
+         */
+        code: number
+        /**
+         * 提示信息
+         */
+        msg: string
+        data: ResUserUserInfoidData
+    }
+    /**
+     * 数据
+     */
+    export interface ResUserUserInfoidData {
+        /**
+         * 用户名
+         */
+        user_name: string
+        /**
+         * 唯一标识
+         */
+        id: string
+        /**
+         * 电话号码
+         */
+        phone: string
+        info: ResUserUserInfoidDataInfo
+    }
+    /**
+     * 具体信息
+     */
+    export interface ResUserUserInfoidDataInfo {
+        /**
+         * 地址
+         */
+        address: string
     }
 
-    if (config?.body) {
-        options.data = config.body(options.data)
+    export interface ParamUserUserInfoid {
+        id: string
     }
-    return options
-})
 
-// 响应拦截器
-ax.interceptors.response.use((res: AxiosResponse) => {
-    const options = res.config
-    const key = `${options.method}_${options.url}`
-    const config = configs[key]
-
-    if (config?.response && res.data?.response) {
-        res.data.response = config.response(res.data.response)
-    }
-    return res
-})
+    export interface ReqUserUserInfoid {}
+}
 ```

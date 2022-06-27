@@ -7,7 +7,7 @@
 declare namespace {{it.namespace}} {
 
 {{@each(it.interList) => val}}
-    {{val | safe}}
+    {{val}}
 
 {{/each}}
 }

@@ -1,8 +1,14 @@
-import { OperationObject } from 'openapi3-ts'
 import { JSONSchema } from 'json-schema-to-typescript'
+import { OperationObject } from 'openapi3-ts'
 export interface APIDataType extends OperationObject {
     path: string
     method: string
+    // responses?: any
+    summary?: string
+    description?: string
+    param?: any
+    query?: any
+    body?: any
 }
 
 export interface TagAPIDataType {
@@ -13,8 +19,9 @@ export interface Definitions {
     [name: string]: JSONSchema
 }
 
-export type FormatQueryType = (name: string, api: APIDataType) => string | string[] | null
-
+export type FormatQueryType = (
+    name: string,
+) => string | string[] | null
 
 export interface Options {
     /*!
@@ -37,11 +44,6 @@ export interface Options {
      */
     filter?: Array<(api: APIDataType, tag?: string) => boolean>
 
-    /*!
-     * 格式化 query 类型
-     * 如， id 要返回 'number | strng'
-     */
-    formatQueryType?: FormatQueryType
     /*!
      * 完成后执行
      */
